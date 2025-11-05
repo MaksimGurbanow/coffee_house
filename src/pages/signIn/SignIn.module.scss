@@ -1,0 +1,66 @@
+.header {
+  margin-bottom: 20px;
+}
+
+.form,
+.formSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.formSection {
+  gap: 40px;
+}
+
+.formH1 {
+  color: #403f3d;
+  font-style: normal;
+  line-height: 125%;
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 60px;
+  line-height: 125%;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Inter Regular", sans-serif;
+  font-weight: 400;
+  position: relative;
+}
+
+.formSubmitBtn {
+  margin-top: 16px;
+  width: 200px;
+  height: 44px;
+  min-height: unset;
+  gap: 8px;
+  border-radius: 100px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--text-dark);
+  border: 2px solid var(--border-light);
+  background: transparent;
+  cursor: pointer;
+
+  &.invalid {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+}

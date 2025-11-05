@@ -1,0 +1,107 @@
+h1 {
+  color: var(--text-dark);
+  font-size: 60px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.cartContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 40px;
+  align-items: center;
+  gap: 40px;
+}
+
+.authLinkContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 40px;
+}
+
+.authLink {
+  width: 200px;
+  height: 44px;
+  min-height: unset;
+  gap: 8px;
+  text-align: center;
+  border-radius: 100px;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--text-dark);
+  border: 2px solid var(--border-light);
+  padding: 10px;
+}
+
+.authLink:hover::after {
+  transform: scale(0);
+}
+
+.cartList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.cartTotalLabel {
+  flex: 1;
+}
+
+.cartItemTotal {
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 125%;
+  text-align: right;
+}
+
+.cartData {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cartTotalContainer,
+.cartAddressContainer,
+.cartPayMethodContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+  padding-left: 48px;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: capitalize;
+}
+
+.authLinksContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 40px;
+}
+
+.confirmOrderButton {
+  width: 200px;
+  height: 44px;
+  border-radius: 100px;
+  border: 1px solid var(--border-dark);
+  min-height: unset;
+  font-size: 16px;
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.canceled {
+  text-decoration:line-through;
+  opacity: 0.5;
+}

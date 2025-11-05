@@ -1,0 +1,168 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Inter Italic';
+  src: url('./fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Inter Semibold';
+  src: url("./fonts/static/Inter-SemiBold.ttf") format('truetype');
+  font-style: SemiBold;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Inter SemiBold Italic 18pt';
+  src: url('./fonts/static/Inter_18pt-SemiBoldItalic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Inter Regular';
+  src: url('./fonts/static/Inter-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --background-body: #e1d4c9;
+  --text-dark: #403f3d;
+  --text-accent: #b0907a;
+  --text-light: #e1d4c9;
+  --text-placeholder-50: #A1A8B3;
+  --border-dark: #665f55;
+  --border-light: #C1B6AD;
+  --500-transition: 0.5s ease-out;
+}
+
+body {
+  overflow-x: hidden;
+  margin: auto;
+  font-family: "Inter";
+  text-decoration: none;
+  font-feature-settings: "clig" off, "liga" off;
+  font-weight: 600;
+  text-align: start;
+  color: var(--text-dark, #403f3d);
+  background: var(--background-body, #e1d4c9);
+  max-width: 1440px;
+}
+
+button {
+  display: flex;
+  min-width: 60px;
+  min-height: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid var(--border-dark, #665f55);
+  transition-timing-function: ease-out;
+}
+
+button,
+a {
+  transition: all 0.5s ease-in;
+  text-decoration: none;
+  border: none;
+  color: var(--text-dark);
+  cursor: pointer;
+  background: transparent;
+}
+
+h1 {
+  font-size: 72px;
+  color: var(--text-light);
+  font-style: normal;
+  line-height: 105%;
+  font-weight: 600;
+  max-width: 800px;
+}
+
+h2 {
+  font-size: 60px;
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 125%;
+}
+
+h3 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%;
+}
+
+div {
+  line-height: 150%;
+  font-weight: 400;
+}
+
+span {
+  color: var(--text-accent, #b0907a);
+}
+
+.accented {
+  color: var(--text-accent, #b0907a);
+}
+
+#houseNumber::-webkit-outer-spin-button,
+#houseNumber::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: clamp(42px, 12.5vw, 72px);
+  }
+}
+
+@media screen and (max-width: 380px) {
+  h1 {
+    font-size: 42px;
+    line-height: 115%;
+  }
+  h2 {
+    font-size: 32px;
+  }
+}

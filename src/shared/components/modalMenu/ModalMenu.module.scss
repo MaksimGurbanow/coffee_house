@@ -1,0 +1,65 @@
+@use '../../../index.scss' as *;
+
+.modalMenu {
+  /* opacity: 0; */
+  display: flex;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 80px);
+  top: 80px;
+  padding-bottom: 20px;
+  left: 0;
+  background: var(--background-body);
+  transition: transform 1s ease-in-out;
+}
+
+.modalMenu .modalNavbar {
+  display: inherit;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+.activeModal {
+  display: flex;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.modalNavbar ul {
+  @include flex-center;
+  flex-direction: column;
+  gap: 58px;
+  list-style-type: none;
+}
+
+.modalNavbar ul li img {
+  width: 40px;
+  height: 40px;
+}
+.modalNavbar ul {
+  margin-top: 40px;
+}
+
+.modalNavbar .menuItem a {
+  font-family: "Inter";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  line-height: 125%;
+}
+
+.modalNavbar #menu-btn {
+  margin-top: 40px;
+}
+
+.hidden {
+  transform: translateX(120vw);
+}
+
+.menuItem a {
+  gap: 16px;
+}

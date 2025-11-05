@@ -1,0 +1,88 @@
+.mobileApp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  margin-top: 60px;
+  align-self: stretch;
+  border-radius: 40px;
+}
+
+.container {
+  display: flex;
+  width: 90vw;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  flex: 1 0 0;
+  margin: 0 40px;
+}
+
+.offer {
+  font-family: 'Inter';
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  flex: 1 0 0;
+}
+
+.offer h2 span {
+  font-style: normal;
+}
+
+.offer .buttons {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.offer button {
+  display: flex;
+  width: 200px;
+  padding: 12px 20px;
+  align-items: center;
+  font-style: normal;
+  justify-content: flex-start;
+  text-align: center;
+  gap: 8px;
+  border-radius: 100px;
+  border: 1px solid var(--border-dark, #665f55);
+  background: transparent;
+  height: 64px;
+}
+
+.mobScreen {
+  max-width: 630px;
+  max-height: 630px;
+}
+
+.mobScreen img {
+  width: 100%;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  color: var(--text-dark);
+  font-size: 10px;
+  line-height: 140%;
+  font-weight: 600 !important;
+  font-family: 'Inter';
+}
+
+.text strong {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+
+.skewed {  
+  display: inline-block;
+  transform: skew(-9deg);
+}

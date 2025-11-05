@@ -1,0 +1,81 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 84px;
+  width: 400px;
+}
+
+.inputLabel {
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: var(--text-dark);
+}
+
+.inputItem {
+  height: 56px;
+  flex-direction: column;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  border-radius: 12px;
+  color: var(--text-placeholder-50);
+  font-size: 16px;
+  border: 1px solid var(--border-light);
+  background: transparent;
+}
+
+.inputItem::placeholder {
+  color: var(--text-placeholder-50);
+}
+
+.inputItem.invalid {
+  border: 2px solid red;
+}
+
+.errorText {
+  color: #d9534f;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.paymentContainer {
+  gap: 18px;
+  color: var(--text-dark);
+}
+
+.paymentOptions {
+  display: flex;
+  gap: 24px;
+}
+
+.paymentLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.paymentInput {
+  height: unset;
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.customRadio {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #665f55;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.paymentInput:checked + .customRadio {
+  border-width: 5px;
+}
+

@@ -1,0 +1,132 @@
+.productItem {
+  display: flex;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  width: 310px;
+
+  height: 506px;
+  flex-direction: column;
+  /* align-items: center; */
+  border-radius: 40px;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid var(--border-light, #c1b6ad);
+  z-index: 3;
+}
+
+.productItem .image {
+  overflow: hidden;
+  border-radius: 40px;
+  min-height: 310px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productItem .description {
+  margin: 19px 20px 20px 20px;
+  text-align: start;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.productItem .description .title {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.productItem .description h3 {
+  font-family: "Inter";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%;
+}
+
+.productItem img {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 40px;
+  transform: scale(1.05);
+  transition: transform 0.5s;
+  margin: 0;
+}
+
+.productItem .text {
+  font-family: "Inter Regular";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.price div {
+  text-align: left;
+  font-family: "Inter";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 30px */
+}
+
+.description .text {
+  color: var(--text-dark, #403f3d);
+  font-feature-settings: "clig" off, "liga" off;
+  /* Desktop/Body/medium */
+  font-family: "Inter Regular";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.canceled {
+  text-decoration:line-through;
+  opacity: 0.5;
+}
+
+
+@media screen and (max-width: 768px) {
+  .imageItem img {
+    transform: scale(1.05);
+  }
+
+  .offer h1 span {
+    display: inline;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .productItem:hover img {
+    transform: scale(1);
+  }
+  .menu .container .offer button:hover span {
+    background: #e1d4c9;
+  }
+  .menu .container .offer button:hover {
+    display: flex;
+    padding: 8px 16px 8px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background: #665f55;
+    color: #e1d4c9;
+  }
+
+  .productItem {
+    cursor: pointer;
+  }
+}

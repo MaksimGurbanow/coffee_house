@@ -1,0 +1,228 @@
+@use "/src/index.scss" as *;
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  height: 60px;
+  margin: 20px 40px;
+}
+
+.logo {
+  height: 60px;
+}
+
+/* --- NAVIGATION --- */
+.nav {
+  &List {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  border-bottom: 2px solid transparent;
+
+  a {
+    @include flex-between;
+    position: relative;
+    font: 600 16px/150% "Inter", sans-serif;
+    color: var(--text-dark);
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-dark);
+      transform: scaleX(0);
+      transition: transform var(--500-transition);
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.menuLink {
+  @include flex-between;
+  position: relative;
+  font: 600 16px/150% "Inter", sans-serif;
+  color: var(--text-dark);
+  text-decoration: none;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-dark);
+    transform: scaleX(0);
+    transition: transform var(--500-transition);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+
+/* --- MENU --- */
+.menu {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.menuItems {
+  display: flex;
+  gap: 32px;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 72px;
+
+  &:has(#cart-link) {
+    width: 38px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    cursor: pointer !important;
+    font-size: 16px;
+    font-weight: 600;
+    transition: gap var(--500-transition);
+  }
+
+  #cart-link::after,
+  #cart-link:hover::after {
+    transform: scale(0);
+  }
+}
+
+.menuLink {
+  gap: 0 !important;
+
+  &:hover {
+    gap: 16px !important;
+  }
+}
+
+.productsInCart {
+  color: var(--text-dark);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+/* --- BURGER BUTTON --- */
+.burgerButton {
+  width: 44px !important;
+  height: 44px !important;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid var(--border-dark, #665f55);
+  cursor: pointer;
+  position: relative;
+  min-width: unset !important;
+  min-height: unset !important;
+}
+
+.openButton {
+  gap: 8px;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.openButton svg {
+  transition: all 0.3s ease-in-out;
+}
+
+.active svg:first-child {
+  transform: translateY(5px) rotate(-45deg);
+}
+
+.active svg:last-child {
+  transform: translateY(-5px) rotate(45deg);
+}
+
+.burgerLines {
+  gap: 8px;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.active {
+  svg:first-child {
+    transform: translateY(5px) rotate(-45deg);
+  }
+
+  svg:last-child {
+    transform: translateY(-5px) rotate(45deg);
+  }
+}
+
+.large {
+  height: 590px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.cartLink:after, .cartLink:hover:after {
+    transform: scale(0);
+}
+
+.menuItem:has(.cartLink) {
+    width: 38px;
+}
+
+.coffeeMenu a:after {
+    transition: 0s;
+    transform: scale(1);
+}
+@media screen and (hover: hover) {
+    a:hover:after {
+        transform: scale(1);
+    }
+}

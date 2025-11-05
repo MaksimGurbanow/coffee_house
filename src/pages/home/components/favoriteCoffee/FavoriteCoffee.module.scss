@@ -1,0 +1,128 @@
+.favouriteCoffee {
+  margin-top: 100px;
+}
+
+.favouriteCoffee,
+.favouriteCoffee .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.favouriteCoffee .container {
+  padding: 0 40px;
+}
+
+.favouriteCoffee .container h2 {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.favouriteCoffee .container h2 span {
+  font-style: normal !important;
+}
+
+.favouriteCoffee .container .slider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+button {
+  display: flex;
+  min-width: 60px;
+  min-height: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid var(--border-dark, #665f55);
+  transition-timing-function: ease-out;
+}
+
+.slides {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slideItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  flex: 1 0 100%;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.slideContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 480px;
+  height: 640px;
+}
+
+.slideItem .description {
+  font-size: 16px;
+  font-style: normal;
+  text-align: center;
+  width: 100%;
+}
+
+.previous {
+  transform: translateX(5px);
+}
+
+.next {
+  transform: translateX(-5px);
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.controlItem {
+  width: 40px;
+  height: 4px;
+  background: transparent;
+  border-radius: 100px;
+  background: var(--border-light, #c1b6ad);
+  position: relative;
+  z-index: 10;
+}
+
+.controlItem::before {
+  content: "";
+  width: var(--before-width, 0);
+  transition: var(--before-transition, none);
+  height: 4px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: var(--text-dark);
+}
+
+.activeControl {
+  transition: width 5s linear;
+}
+
+.activeControl::before {
+  width: 100%;
+  transition: width 5s linear;
+}
+
+.skewed {  
+  display: inline-block;
+  transform: skew(-9deg);
+}
+
+.accented {
+  color: var(--text-accent, #b0907a);
+}
