@@ -157,6 +157,7 @@ li a {
 
   button:hover {
     background: var(--border-dark);
+    color: var(--text-light);
   }
 
   .contacts .medias .buttons:hover a {
@@ -184,75 +185,7 @@ li a {
   }
 }
 
-@media screen and (max-width: 780px) {
-  .contacts .container {
-    padding: 100px 60px;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-  }
-}
-
-@media screen and (max-width:380px) {
-    .contacts .container {
-    padding: 60px 16px;
-    gap: 40px;
-  }
-}
-
-
-@media screen and (max-width: 768px) {
-  h1 {
-    font-size: clamp(42px, 12.5vw, 72px);
-  }
-  .navbar {
-    display: none;
-  }
-
-  .coffee-menu .menu-item {
-    display: none;
-  }
-  .coffee-menu .burger-item {
-    display: inline-flex;
-  }
-  div.image-item:nth-child(2),
-  div.image-item:nth-child(4) {
-    display: none;
-  }
-
-  .wrap {
-    padding: 100px 60px;
-  }
-
-  .wrap .content a img {
-    display: inline-flex;
-  }
-
-  .wrap .content a {
-    gap: 8px;
-  }
-
-  .mobile-app {
-    margin-top: 60px;
-  }
-
-  .about .images,
-  .mobile-app .container {
-    display: block;
-    width: 100%;
-    .image-item {
-      margin-bottom: 40px;
-
-      img {
-        transform: scale(1.06);
-      }
-    }
-    .mob-screen {
-      margin: 0 auto;
-      margin-top: 100px;
-    }
-  }
-
+@media screen and (max-width: 790px) {
   .contacts .container {
     padding: 100px 60px;
     flex-direction: column;
@@ -262,30 +195,27 @@ li a {
 }
 
 @media screen and (max-width: 500px) {
-  h2 {
-    font-size: 45px;
+  .contactsTitle {
+    font-size: 32px;
   }
-  .favourite-coffee .container {
-    margin: 0;
-    padding: 0;
+
+  .container {
+    padding: 60px 16px !important;
+  }
+}
+
+@media screen and (max-width:380px) {
+  .contacts .container {
+    gap: 40px;
+  }
+  
+  .contacts .medias span {
+    display: inline;
   }
 }
 
 /* mobyle styles */
 
-@media screen and (max-width: 380px) {
-  .contacts .container {
-    padding: 60px 16px;
-  }
-
-  .contacts .container {
-    gap: 40px;
-  }
-
-  .contacts .medias span {
-    display: inline;
-  }
-}
 
 @media screen and (hover: hover) {
   button:hover .text {

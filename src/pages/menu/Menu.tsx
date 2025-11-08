@@ -5,12 +5,14 @@ import type { Product } from "../../types/types";
 import Loader from "../../shared/components/loader/Loader";
 import Error from "../../shared/components/error/Error";
 import { getProductByID } from "../../api";
+import { useTranslation } from "react-i18next";
 
 const Menu = () => {
   const [productId, setProductId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [itemInfo, setItemInfo] = useState<Product | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!productId) {
@@ -28,7 +30,7 @@ const Menu = () => {
         setItemInfo(product);
         setError("");
       } catch {
-        setError("Failed to load product. Please try again.");
+        setError(t("load_error"));
         setProductId("");
       } finally {
         setLoading(false);
@@ -40,7 +42,7 @@ const Menu = () => {
     return () => {
       abortController.abort();
     };
-  }, [productId]);
+  }, [productId, t]);
 
   const closeModal = () => {
     setProductId("");

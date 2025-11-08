@@ -22,6 +22,7 @@ import { useNavigate } from "react-router";
 import cn from "classnames";
 import { streetMap } from "../../data/streetMap";
 import Error from "../../shared/components/error/Error";
+import { useTranslation } from "react-i18next";
 
 const fieldsAreValid = (formData: RegisterDto): boolean => {
   const {
@@ -66,6 +67,7 @@ const Register = () => {
   const [isValid, setIsValid] = useState(false);
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [error, setError] = useState("");
   const streetsToChoose = useMemo(
     () =>
@@ -112,7 +114,7 @@ const Register = () => {
   return (
     <main className={classes.form}>
       <section className={classes.formSection}>
-        <h1 className={classes.formH1}>Registration</h1>
+        <h1 className={classes.formH1}>{t("registration")}</h1>
 
         <div className={classes.formContainer}>
           <form className={classes.form} onSubmit={handleSubmit}>
@@ -120,7 +122,8 @@ const Register = () => {
               type="text"
               name="login"
               id="login"
-              label="Login"
+              label={t("login")}
+              placeholder={t("placeholder")}
               value={formData.login}
               validationRule={loginValidationRules}
               onChange={handleChange}
@@ -130,7 +133,8 @@ const Register = () => {
               type="password"
               name="password"
               id="password"
-              label="Password"
+              label={t("password")}
+              placeholder={t("placeholder")}
               value={formData.password}
               validationRule={passwordValidationRules}
               onChange={handleChange}
@@ -139,7 +143,8 @@ const Register = () => {
             <Input
               type="password"
               name="confirmPassword"
-              label="Confirm Password"
+              label={t("confirm_password")}
+              placeholder={t("placeholder")}
               value={formData.confirmPassword}
               validationRule={confirmPasswordValidationRule}
               onChange={handleChange}
@@ -151,39 +156,40 @@ const Register = () => {
 
             <Select
               name="city"
-              label="City"
+              label={t("city")}
               id="city"
               value={formData.city}
               onChange={handleChange}
               options={[
-                { value: "", label: "Select your city", disabled: true },
+                { value: "", label: t("city_placeholder"), disabled: true },
                 { value: "Adana", label: "Adana" },
                 { value: "Ankara", label: "Ankara" },
                 { value: "Istanbul", label: "Istanbul" },
               ]}
               validationRule={nonEmptyRule}
-              validationOptions={{ nonEmpty: true, fieldName: "City" }}
+              validationOptions={{ nonEmpty: true, fieldName: t("city") }}
             />
 
             <Select
               name="street"
-              label="Street"
+              label={t("street")}
               id="street"
               value={formData.street}
               onChange={handleChange}
               options={[
-                { value: "", label: "Select your street", disabled: true },
+                { value: "", label: t("street_placeholder"), disabled: true },
                 ...streetsToChoose,
               ]}
               validationRule={nonEmptyRule}
-              validationOptions={{ nonEmpty: true, fieldName: "Street" }}
+              validationOptions={{ nonEmpty: true, fieldName: t("street") }}
             />
 
             <Input
               type="number"
               name="houseNumber"
               id="houseNumber"
-              label="House number"
+              label={t("house")}
+              placeholder={t("placeholder")}
               value={formData.houseNumber === 0 ? "" : formData.houseNumber}
               validationRule={houseNumberRule}
               onChange={handleChange}
@@ -199,10 +205,10 @@ const Register = () => {
                 fieldName: "Payment method",
               }}
               onChange={handleChange}
-              label="Pay by"
+              label={t("pay_by")}
               radioValues={[
-                { label: "Cash", value: "cash", id: "cash" },
-                { label: "Card", value: "card", id: "card" },
+                { label: t("cash"), value: "cash", id: "cash" },
+                { label: t("card"), value: "card", id: "card" },
               ]}
             />
 
@@ -213,7 +219,7 @@ const Register = () => {
               type="submit"
               disabled={!isValid}
             >
-              Registration
+              {t("registration")}
             </button>
 
             {error && <Error message={error} />}

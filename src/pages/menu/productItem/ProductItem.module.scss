@@ -130,3 +130,10 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width:380px) {
+  .imageItem img {
+    transform: scale(1.23) !important;
+  }
+
+}

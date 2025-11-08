@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import type { CardProduct, Category } from "../types/types";
 import { useWidthObserver } from "./useWidthObserver";
 import { getProducts } from "../api";
+import { useTranslation } from "react-i18next";
 
 export const useProducts = () => {
   const [products, setProducts] = useState<CardProduct[]>([]);
@@ -10,6 +11,7 @@ export const useProducts = () => {
   const [error, setError] = useState<string | null>(null);
   const [category, setCategory] = useState<Category>("coffee");
   const { ref } = useWidthObserver();
+  const { t } = useTranslation();
 
   const updateMaxProductsToShow = useCallback(() => {
     const width = window.innerWidth;
@@ -28,6 +30,9 @@ export const useProducts = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
+        // await new Promise<void>((res) => {
+        //   setTimeout(() => res(), 1000);
+        // });
         const response = await getProducts();
         if (isMounted) {
           setProducts(response);
@@ -35,7 +40,7 @@ export const useProducts = () => {
         }
       } catch {
         if (isMounted) {
-          setError("Something went wrong. Please refresh the page.");
+          setError(t("error"));
         }
       } finally {
         if (isMounted) setLoading(false);
@@ -47,7 +52,7 @@ export const useProducts = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [t]);
 
   const filteredProducts = products.filter(
     (product) => product.category === category

@@ -75,10 +75,12 @@ button {
 }
 
 .previous {
+  border: 1px solid var(--border-dark, #665f55);
   transform: translateX(5px);
 }
 
 .next {
+  border: 1px solid var(--border-dark, #665f55);
   transform: translateX(-5px);
 }
 
@@ -125,4 +127,30 @@ button {
 
 .accented {
   color: var(--text-accent, #b0907a);
+}
+
+@media screen and (max-width: 380px) {
+  .favouriteCoffee .container {
+    padding: 0 16px;
+  }
+
+  .favouriteCoffee .container h2 {
+    margin-bottom: 38px;
+  }
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .slider {
+    justify-content: center;
+    width: 100% !important;
+
+    & button {
+    display: none;
+    }
+  }
+
+  .controls {
+    margin-top: 42px;
+  }
 }

@@ -157,6 +157,12 @@ span {
   }
 }
 
+@media screen and (max-width: 500px) {
+  h2 {
+    font-size: 45px;
+  }
+}
+
 @media screen and (max-width: 380px) {
   h1 {
     font-size: 42px;
@@ -164,5 +170,22 @@ span {
   }
   h2 {
     font-size: 32px;
+  }
+
+}
+
+
+@media screen and (hover: hover) {
+  button:hover .text {
+    color: var(--text-light);
+  }
+
+  button:hover {
+    background: var(--border-dark);
+    color: var(--text-light);
+
+    & span {
+      color: var(--text-light);
+    }
   }
 }

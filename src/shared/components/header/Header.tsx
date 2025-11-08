@@ -10,6 +10,8 @@ import cn from "classnames";
 import { Link, useLocation } from "react-router";
 import { useAuthContext } from "../../../context/AuthContext.ts";
 import { useCartContext } from "../../../context/CartContext.ts";
+import { useTranslation } from "react-i18next";
+import { PersonCircle } from "react-bootstrap-icons";
 
 const Header = () => {
   const { isMobile, ref } = useWidthObserver();
@@ -21,6 +23,9 @@ const Header = () => {
   const { cart } = useCartContext();
   const { pathname } = useLocation();
   const isCartPage = pathname === "/cart";
+  const isProfilePage = pathname === "/profile";
+  const { t } = useTranslation();
+
   return (
     <header className={classes.header} ref={ref}>
       <div className={classes.headerContainer}>
@@ -34,9 +39,13 @@ const Header = () => {
           <nav className={classes.nav}>
             <ul className={classes.navList}>
               {menuItems.map((item) => (
-                <li className={classes.navItem} key={item.label}>
+                <li
+                  className={classes.navItem}
+                  key={item.label}
+                  onClick={() => setModalIsHidden(true)}
+                >
                   <a href={item.href} className={classes.navItemLink}>
-                    {item.label}
+                    {t(item.textId)}
                   </a>
                 </li>
               ))}
@@ -88,7 +97,18 @@ const Header = () => {
             </button>
           ) : (
             <div className={classes.menuItems}>
-              {(user || cart.items.length) && !isCartPage && (
+              {user && !isProfilePage && (
+                <div className={classes.menuItem}>
+                  <Link
+                    to="/profile"
+                    id="profile-link"
+                    className={classes.profileLink}
+                  >
+                    <PersonCircle style={{ minHeight: 20, minWidth: 20 }} />
+                  </Link>
+                </div>
+              )}
+              {(user || !!cart.items.length) && !isCartPage && (
                 <div className={classes.menuItem}>
                   <Link to="cart" id="cart-link" className={classes.cartLink}>
                     <CartIcon style={{ minWidth: 20, minHeight: 20 }} />
@@ -103,7 +123,7 @@ const Header = () => {
 
               <div className={classes.menuItem}>
                 <Link to="menu" className={classes.menuLink}>
-                  Menu
+                  {t("menu")}
                   <MenuItem
                     style={{ minWidth: 20, minHeight: 20 }}
                     className={classes.menuLinkIcon}
@@ -114,7 +134,12 @@ const Header = () => {
           )}
         </div>
       </div>
-      {isMobile && <ModalMenu hidden={modalIsHidden} />}
+      {isMobile && (
+        <ModalMenu
+          hidden={modalIsHidden}
+          handleClick={() => setModalIsHidden(true)}
+        />
+      )}
     </header>
   );
 };

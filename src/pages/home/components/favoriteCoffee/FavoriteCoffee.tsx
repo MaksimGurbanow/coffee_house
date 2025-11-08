@@ -6,8 +6,10 @@ import SlideItem from "../slideItem/SlideItem";
 import Error from "../../../../shared/components/error/Error";
 import cn from "classnames";
 import { useEffect } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
 const FavoriteCoffee = () => {
+  const { t } = useTranslation();
   const {
     slides,
     error,
@@ -27,11 +29,13 @@ const FavoriteCoffee = () => {
     <section className={classes.favouriteCoffee} id="favourite-coffee">
       <div className={classes.container}>
         <h2>
-          Choose your <span className={classes.skewed}>favorite</span> coffee
+          <Trans i18nKey="fav_coffee">
+            Choose your <span className={classes.skewed}>favorite</span> coffee
+          </Trans>
         </h2>
 
         <div className={classes.slider}>
-          {!error && (
+          {!!slides.length && (
             <button className={classes.previous} onClick={setPrevIndex}>
               <ArrowLeft />
             </button>
@@ -55,14 +59,10 @@ const FavoriteCoffee = () => {
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 />
               ))}
-            {error && (
-              <Error
-                message={"⚠️ Something went wrong. Please, refresh the page"}
-              />
-            )}
+            {error && <Error message={t("error")} />}
           </div>
 
-          {!error && (
+          {!!slides.length && (
             <button className={classes.next} onClick={setNextIndex}>
               <ArrowRight />
             </button>

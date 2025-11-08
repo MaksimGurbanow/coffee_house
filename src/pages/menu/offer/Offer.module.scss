@@ -192,3 +192,8 @@ button span {
   font-weight: 400;
   line-height: 150%;
 }
+
+.skewed {
+  display: inline-block;
+  transform: skew(-9deg)
+}

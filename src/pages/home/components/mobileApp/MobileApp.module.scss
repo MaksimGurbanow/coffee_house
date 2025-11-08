@@ -72,17 +72,92 @@
   line-height: 140%;
   font-weight: 600 !important;
   font-family: 'Inter';
-}
+  background: none;
 
-.text strong {
+  & strong {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 150%;
+}
+}
+
+.appButton:hover {
+  background: var(--border-dark);
+  
+  & .text {
+    color: var(--text-light) !important;
+  }
+
+  & .icon path {
+    fill: var(--text-light)
+  }
 }
 
 
 .skewed {  
   display: inline-block;
   transform: skew(-9deg);
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .mobileApp {
+    margin-top: 60px;
+  }
+
+  .about .images,
+  .mobileApp .container {
+    display: block;
+    width: 100%;
+    .imageItem {
+      margin-bottom: 40px;
+
+      img {
+        transform: scale(1.06);
+      }
+    }
+    .mobScreen {
+      margin: 0 auto;
+      margin-top: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .wrap {
+    padding: 60px 16px;
+    max-height: 552px;
+  }
+
+  .mobScreen {
+    width: 348px;
+  }
+
+  .mobileApp {
+    margin-top: 52px;
+  }
+
+  .mobileApp .container {
+    flex-direction: row;
+  }
+
+  .mobileApp .offer .buttons {
+    flex-direction: column;
+  }
+
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .offer .buttons {
+    height: auto;
+  }
+
+  .mobScreen {
+    margin-top: 40px !important;
+  }
+
 }

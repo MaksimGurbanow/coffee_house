@@ -10,6 +10,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { login as loginRequest } from "../../api/index";
 import Error from "../../shared/components/error/Error";
+import { useTranslation } from "react-i18next";
 
 const fieldsAreValid = (login: string, password: string): boolean => {
   const loginError = loginValidationRules(login);
@@ -25,6 +26,7 @@ const SignIn = () => {
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,14 +62,15 @@ const SignIn = () => {
   return (
     <main className={classes.form}>
       <section className={classes.formSection}>
-        <h1 className={classes.formH1}>Sign In</h1>
+        <h1 className={classes.formH1}>{t("sign")}</h1>
 
         <div className={classes.formContainer}>
           <form className={classes.form} id="form-form" onSubmit={handleSubmit}>
             <Input
               name="login"
-              label="Login"
+              label={t("login")}
               type="text"
+              placeholder={t("placeholder")}
               id="login"
               value={login}
               onChange={handleChange}
@@ -75,8 +78,9 @@ const SignIn = () => {
             />
 
             <Input
-              label="Password"
+              label={t("password")}
               type="password"
+              placeholder={t("placeholder")}
               id="password"
               name="password"
               value={password}
@@ -91,7 +95,7 @@ const SignIn = () => {
               type="submit"
               disabled={!isValid}
             >
-              Sign In
+              {t("sign")}
             </button>
             {error && <Error message={error} />}
           </form>
