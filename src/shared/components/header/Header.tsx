@@ -1,7 +1,7 @@
 import { useWidthObserver } from "../../../hooks/useWidthObserver.ts";
 import classes from "./Header.module.scss";
 import Logo from "../../../images/logo.png";
-import CartIcon from "../../../assets/cartIcon.svg";
+import CartIcon from "../../../assets/cartIcon.svg?react";
 import MenuItem from "../../../assets/menuItem.svg?react";
 import ModalMenu from "../modalMenu/ModalMenu";
 import { menuItems } from "../../data";
