@@ -10,7 +10,7 @@ import Error from "../../shared/components/error/Error";
 import { useTranslation } from "react-i18next";
 
 const Cart = () => {
-  const { cart, clearCart } = useCartContext();
+  const { cart } = useCartContext();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
