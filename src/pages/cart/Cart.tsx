@@ -5,7 +5,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import CartItem from "./cartItem/CartItem";
 import { useCallback, useEffect, useState } from "react";
 import Loader from "../../shared/components/loader/Loader";
-import { confirmOrder } from "../../api";
+import { confirmOrder, createCheckout } from "../../api";
 import Error from "../../shared/components/error/Error";
 import { useTranslation } from "react-i18next";
 
@@ -22,26 +22,28 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) return;
-      await confirmOrder(
+      console.log(cart);
+      const orderId = await confirmOrder(
         {
-          items: cart.items.map((item) => ({
-            productId: item.productId,
-            additives: item.additives,
-            size: item.size,
-            quantity: item.quantity,
-          })),
-          totalPrice: cart.totalPrice,
+          items: cart.items,
+          totalPrice: cart.discountedTotalPrice || cart.totalPrice,
         },
         token
       );
-      setResponse(t("order_response"));
-      clearCart();
+
+      const data = await createCheckout(orderId, token);
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setResponse(t("order_response"));
+      }
     } catch {
       setError(t("error"));
     } finally {
       setLoading(false);
     }
-  }, [cart.items, cart.totalPrice, clearCart, t]);
+  }, [cart, t]);
 
   useEffect(() => {
     if (error) {
@@ -63,7 +65,9 @@ const Cart = () => {
 
         <div className={classes.cartList}>
           {!!cart.items.length &&
-            cart.items.map((item) => <CartItem item={item} key={item.title} />)}
+            cart.items.map((item) => (
+              <CartItem item={item} key={item.uniqueId} />
+            ))}
         </div>
 
         <div className={classes.cartData}>

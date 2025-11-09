@@ -16,6 +16,7 @@ import { CartProvider } from "./context/CartProvider";
 import Cart from "./pages/cart/Cart";
 import { LocationProvider } from "./i18n/LocationProvider";
 import Profile from "./pages/profile/Profile";
+import PaymentConfirm from "./pages/paymentConfirm/PaymentConfirm";
 
 const Layout = () => {
   return (
@@ -49,7 +50,8 @@ const router = createBrowserRouter([
       { path: "signIn", element: <SignIn /> },
       { path: "register", element: <Register /> },
       { path: "cart", element: <Cart /> },
-      { path: "Profile", element: <Profile /> },
+      { path: "profile", element: <Profile /> },
+      { path: "payment_confirm", element: <PaymentConfirm /> },
     ],
   },
 ]);

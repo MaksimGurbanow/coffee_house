@@ -126,20 +126,29 @@ export const confirmOrder = async (
   confirmOrderDto: ConfirmOrderDto,
   token: string
 ) => {
+  console.log(confirmOrderDto);
   const res = await fetch(`${url}/orders/confirm`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(confirmOrderDto),
+    body: JSON.stringify({
+      ...confirmOrderDto,
+      items: confirmOrderDto.items.map((item) => ({
+        productId: item.productId,
+        size: item.size,
+        additives: item.additives,
+        quantity: item.quantity,
+      })),
+    }),
   });
   if (!res.ok) {
     throw new Error(`Failed to confirm order: ${res.status} ${res.statusText}`);
   }
   const data: { data: { message: string; orderId: string } } = await res.json();
 
-  return data;
+  return data.data.orderId;
 };
 
 export const getOrders = async (
@@ -157,4 +166,47 @@ export const getOrders = async (
 
   const data = await res.json();
   return data.data;
+};
+
+export const createCheckout = async (orderId: string, token: string) => {
+  const res = await fetch(`${url}/payments/checkout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ orderId }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to confirm order: ${res.status} ${res.statusText}`);
+  }
+  const data: { message: string; url: string } = await res.json();
+
+  return data;
+};
+
+export const verifyPayment = async (
+  hash: string,
+  orderId: string,
+  token: string
+) => {
+  const res = await fetch(
+    `${url}/payments/verify-order?orderId=${orderId}&hash=${hash}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ orderId, hash }),
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to confirm order: ${res.status} ${res.statusText}`);
+  }
+  const data: { message: string; valid: boolean } = await res.json();
+
+  return data;
 };
