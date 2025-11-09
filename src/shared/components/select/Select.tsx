@@ -19,6 +19,8 @@ const Select = ({
   validationRule,
   validationOptions,
   onChange,
+  defaultValue,
+  formValue = "",
 }: SelectProps) => {
   const [error, setError] = useState("");
   const handleBlur = (
@@ -72,13 +74,14 @@ const Select = ({
         })}
         onBlur={(e) => handleBlur(e, validationRule)}
         onFocus={handleFocusIn}
-        defaultValue={options[0].value}
+        defaultValue={defaultValue || options[0].value}
       >
         {options.map((option) => (
           <option
             value={option.value}
             disabled={option.disabled}
             key={option.value}
+            selected={formValue === option.value}
           >
             {option.label}
           </option>

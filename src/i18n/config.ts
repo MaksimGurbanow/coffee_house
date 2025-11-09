@@ -95,6 +95,18 @@ i18n
             required: "{{field}} must be filled",
             house_number: "House number must be greater than 1",
           },
+
+          change_password: "Change Password",
+
+          update_info: "Confirm",
+          cancel: "Cancel",
+
+          welcome: "Welcome back",
+          orders: "Your orders",
+
+          order_id: "Order ID",
+
+          lng_setting: "Choose Your language:",
         },
       },
       ru: {
@@ -173,6 +185,18 @@ i18n
             required: "Поле {{field}} должно быть заполнено",
             house_number: "Номер дома должен быть больше 1",
           },
+
+          change_password: "Поменять пароль",
+
+          update_info: "Подтвердить",
+          cancel: "Отмена",
+
+          welcome: "С возвращением",
+
+          orders: "Ваши заказы",
+          order_id: "Номер заказа",
+
+          lng_setting: "Выберите свой язык:",
         },
       },
 
@@ -254,6 +278,16 @@ i18n
             required: "{{field}} alanı doldurulmalıdır.",
             house_number: "Ev numarası 1’den büyük olmalıdır.",
           },
+
+          change_password: "Şifre değiştir",
+
+          update_info: "Gerçekleştirmek",
+          cancel: "İptal",
+          welcome: "Hoş geldin",
+          orders: "Siparişlerin",
+          order_id: "Sipariş numarası",
+
+          lng_setting: "Dilinizi seçin:",
         },
       },
     },
@@ -261,6 +295,6 @@ i18n
       order: ["querystring", "localStorage", "navigator"],
       caches: ["localStorage"],
       lookupQuerystring: "lng",
-      lookupLocalStorage: "i18nextLng",
+      lookupLocalStorage: "chLng",
     },
   });

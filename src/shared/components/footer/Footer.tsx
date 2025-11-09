@@ -26,7 +26,7 @@ const Footer = () => {
 
           <div className={classes.buttons}>
             {socialMedias.map((item) => (
-              <button key={item.id}>
+              <button key={item.id} className={classes.mediaButton}>
                 <item.Icon />
               </button>
             ))}

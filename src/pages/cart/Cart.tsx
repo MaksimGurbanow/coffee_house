@@ -20,15 +20,20 @@ const Cart = () => {
   const handleConfirmOrder = useCallback(async () => {
     setLoading(true);
     try {
-      await confirmOrder({
-        items: cart.items.map((item) => ({
-          productId: item.productId,
-          additives: item.additives,
-          size: item.size,
-          quantity: item.quantity,
-        })),
-        totalPrice: cart.totalPrice,
-      });
+      const token = localStorage.getItem("authToken");
+      if (!token) return;
+      await confirmOrder(
+        {
+          items: cart.items.map((item) => ({
+            productId: item.productId,
+            additives: item.additives,
+            size: item.size,
+            quantity: item.quantity,
+          })),
+          totalPrice: cart.totalPrice,
+        },
+        token
+      );
       setResponse(t("order_response"));
       clearCart();
     } catch {

@@ -114,7 +114,7 @@ const Register = () => {
   return (
     <main className={classes.form}>
       <section className={classes.formSection}>
-        <h1 className={classes.formH1}>{t("registration")}</h1>
+        <h1 className={classes.formTitle}>{t("registration")}</h1>
 
         <div className={classes.formContainer}>
           <form className={classes.form} onSubmit={handleSubmit}>

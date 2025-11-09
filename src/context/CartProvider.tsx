@@ -28,9 +28,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(cart));
+  // }, [cart]);
 
   const addProductToCart = useCallback(
     (product: Omit<Cart["items"][0], "uniqueId">) => {
@@ -50,6 +50,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         const discountedTotalPrice = updatedItems.reduce(
           (sum, item) => sum + (item.discountedTotal ?? item.total),
           0
+        );
+        localStorage.setItem(
+          "cart",
+          JSON.stringify({
+            items: updatedItems,
+            totalPrice,
+            discountedTotalPrice,
+          })
         );
 
         return { items: updatedItems, totalPrice, discountedTotalPrice };

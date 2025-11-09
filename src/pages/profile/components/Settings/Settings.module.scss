@@ -1,0 +1,40 @@
+@use "../../../../index.scss" as *;
+
+.settings {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.languageSetting {
+  display: flex;
+  gap: 1rem;
+  background: #f3f3f3;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+
+  &Container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+}
+
+.languageOption {
+  cursor: pointer;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #000;
+    transform: scale(1.05);
+  }
+
+  &.active {
+    color: #fff;
+    background: #111;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.6rem;
+  }
+}

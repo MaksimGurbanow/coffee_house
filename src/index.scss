@@ -97,6 +97,23 @@ a {
   background: transparent;
 }
 
+button span {
+  display: flex;
+  padding: 3px 7px;
+  justify-content: center;
+  border-radius: 100px;
+  // background: #c1b6ad;
+  align-items: center;
+  color: var(--text-dark, #403f3d);
+  text-align: center;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
 h1 {
   font-size: 72px;
   color: var(--text-light);
@@ -151,6 +168,16 @@ span {
   align-items: center;
 }
 
+@mixin button-on-hover {
+  background: var(--border-dark);
+  color: var(--text-light);
+
+  & > *,
+  & * {
+    color: var(--text-light);
+  }
+}
+
 @media screen and (max-width: 768px) {
   h1 {
     font-size: clamp(42px, 12.5vw, 72px);
@@ -180,12 +207,12 @@ span {
     color: var(--text-light);
   }
 
-  button:hover {
-    background: var(--border-dark);
-    color: var(--text-light);
+  // button:hover {
+  //   background: var(--border-dark);
+  //   color: var(--text-light);
 
-    & span {
-      color: var(--text-light);
-    }
-  }
+  //   & span {
+  //     color: var(--text-light);
+  //   }
+  // }
 }

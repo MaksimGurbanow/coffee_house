@@ -12,6 +12,7 @@ import { useAuthContext } from "../../../context/AuthContext.ts";
 import { useCartContext } from "../../../context/CartContext.ts";
 import { useTranslation } from "react-i18next";
 import { PersonCircle } from "react-bootstrap-icons";
+import Dropdown from "../dropdown/Dropdown.tsx";
 
 const Header = () => {
   const { isMobile, ref } = useWidthObserver();
@@ -24,7 +25,7 @@ const Header = () => {
   const { pathname } = useLocation();
   const isCartPage = pathname === "/cart";
   const isProfilePage = pathname === "/profile";
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <header className={classes.header} ref={ref}>
@@ -55,48 +56,60 @@ const Header = () => {
 
         <div className={classes.menu}>
           {isMobile ? (
-            <button
-              className={cn(classes.burgerButton, {
-                [classes.active]: !modalIsHidden,
-              })}
-              aria-label="Menu"
-              onClick={handleBurgerBtnClick}
-            >
-              <div className={classes.burgerLines}>
-                <svg
-                  width="18"
-                  height="2"
-                  viewBox="0 0 18 2"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1H17"
-                    stroke="#403F3D"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <svg
-                  width="18"
-                  height="2"
-                  viewBox="0 0 18 2"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1H17"
-                    stroke="#403F3D"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </button>
+            <>
+              <Dropdown
+                label={i18n.language}
+                options={["en", "ru", "tr"]}
+                onOptionClick={(v) => i18n.changeLanguage(v)}
+              />
+              <button
+                className={cn(classes.burgerButton, {
+                  [classes.active]: !modalIsHidden,
+                })}
+                aria-label="Menu"
+                onClick={handleBurgerBtnClick}
+              >
+                <div className={classes.burgerLines}>
+                  <svg
+                    width="18"
+                    height="2"
+                    viewBox="0 0 18 2"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 1H17"
+                      stroke="#403F3D"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <svg
+                    width="18"
+                    height="2"
+                    viewBox="0 0 18 2"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 1H17"
+                      stroke="#403F3D"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </>
           ) : (
             <div className={classes.menuItems}>
+              <Dropdown
+                label={i18n.language}
+                options={["en", "ru", "tr"]}
+                onOptionClick={(v) => i18n.changeLanguage(v)}
+              />
               {user && !isProfilePage && (
                 <div className={classes.menuItem}>
                   <Link

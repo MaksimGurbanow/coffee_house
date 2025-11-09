@@ -53,7 +53,9 @@ const Offer = ({
             <div className={cn(classes.category, classes.tabs)}>
               <button
                 data-category="coffee"
-                className={cn({ [classes.chosen]: category === "coffee" })}
+                className={cn(classes.categoryBtn, {
+                  [classes.chosen]: category === "coffee",
+                })}
                 onClick={() => handleCategoryChange("coffee")}
               >
                 <span className={classes.categoryIcon}>☕</span>{" "}
@@ -61,13 +63,17 @@ const Offer = ({
               </button>
               <button
                 onClick={() => handleCategoryChange("tea")}
-                className={cn({ [classes.chosen]: category === "tea" })}
+                className={cn(classes.categoryBtn, {
+                  [classes.chosen]: category === "tea",
+                })}
               >
                 <span className={classes.categoryIcon}>🫖</span> {t("tea_cat")}
               </button>
               <button
                 onClick={() => handleCategoryChange("dessert")}
-                className={cn({ [classes.chosen]: category === "dessert" })}
+                className={cn(classes.categoryBtn, {
+                  [classes.chosen]: category === "dessert",
+                })}
               >
                 <span className={classes.categoryIcon}>🍰</span>{" "}
                 {t("dessert_cat")}

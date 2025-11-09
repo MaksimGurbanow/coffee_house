@@ -10,6 +10,8 @@ export type RegisterDto = {
   paymentMethod: string;
 };
 
+export type UpdateUserDto = RegisterDto;
+
 export type LoginDto = {
   login: string;
   password: string;

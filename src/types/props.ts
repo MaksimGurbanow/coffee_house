@@ -3,7 +3,7 @@ import type {
   InputHTMLAttributes,
   SelectHTMLAttributes,
 } from "react";
-import type { ValidationOptions, ValidationRule } from "./types";
+import type { ProfileTabId, ValidationOptions, ValidationRule } from "./types";
 
 export interface SlideItemProps {
   path: string;
@@ -27,10 +27,16 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     value: string;
     label: string;
     disabled?: boolean;
-    selected?: string;
+    selected?: boolean;
   }[];
   error?: string;
   label: string;
   validationRule: ValidationRule;
   validationOptions?: ValidationOptions;
+  formValue?: string;
+}
+
+export interface ProfileTabsProps {
+  activeTab: ProfileTabId;
+  setActiveTab: (id: ProfileTabId) => void;
 }
