@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@netlify/vite-plugin-react-router": "^2.1.2",
     "bootstrap-icons": "^1.13.1",
     "classnames": "^2.5.1",
     "crypto-js": "^4.2.0",
