@@ -5,8 +5,9 @@ import { useSlider } from "../../../../hooks/useSlider.ts";
 import SlideItem from "../slideItem/SlideItem";
 import Error from "../../../../shared/components/error/Error";
 import cn from "classnames";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { useWidthObserver } from "../../../../hooks/useWidthObserver.ts";
 
 const FavoriteCoffee = () => {
   const { t } = useTranslation();
@@ -18,6 +19,33 @@ const FavoriteCoffee = () => {
     setPrevIndex,
     setCurrentIndex,
   } = useSlider();
+  const { isMobile } = useWidthObserver();
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStartHandler = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMoveHandler = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEndHandler = () => {
+    if (!touchStartX || !touchEndX) return;
+
+    const distance = touchStartX - touchEndX;
+
+    if (distance > minSwipeDistance) {
+      setNextIndex();
+    }
+    if (distance < -minSwipeDistance) {
+      setPrevIndex();
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,7 +63,7 @@ const FavoriteCoffee = () => {
         </h2>
 
         <div className={classes.slider}>
-          {!!slides.length && (
+          {!!slides.length && !isMobile && (
             <button className={classes.previous} onClick={setPrevIndex}>
               <ArrowLeft />
             </button>
@@ -47,6 +75,9 @@ const FavoriteCoffee = () => {
               transition: "transform 0.5s ease",
               display: "flex",
             }}
+            onTouchStart={onTouchStartHandler}
+            onTouchMove={onTouchMoveHandler}
+            onTouchEnd={onTouchEndHandler}
           >
             {Boolean(slides.length) &&
               slides.map((slide, index) => (
@@ -62,7 +93,7 @@ const FavoriteCoffee = () => {
             {error && <Error message={t("error")} />}
           </div>
 
-          {!!slides.length && (
+          {!!slides.length && !isMobile && (
             <button className={classes.next} onClick={setNextIndex}>
               <ArrowRight />
             </button>

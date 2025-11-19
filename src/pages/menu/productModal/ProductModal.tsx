@@ -89,8 +89,6 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
   }, [basePrice, sortedSizes, chosenSize, additives, chosenAdditives]);
 
   const discountedTotal = useMemo(() => {
-    if (!hasDiscount) return total;
-
     const sizeObj = sortedSizes.find((s) => s.size === chosenSize);
     const sizeDiscount = sizeObj?.discountPrice ?? sizeObj?.price ?? basePrice;
 
@@ -99,15 +97,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
       .reduce((sum, a) => +sum + +(a.discountPrice ?? a.price), 0);
 
     return +sizeDiscount + additivesDiscount;
-  }, [
-    basePrice,
-    sortedSizes,
-    chosenSize,
-    additives,
-    chosenAdditives,
-    hasDiscount,
-    total,
-  ]);
+  }, [basePrice, sortedSizes, chosenSize, additives, chosenAdditives]);
 
   const toggleAdditive = (addName: string) => {
     setChosenAdditives((prev) =>

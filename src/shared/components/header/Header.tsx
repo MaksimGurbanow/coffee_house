@@ -14,6 +14,16 @@ import { useTranslation } from "react-i18next";
 import { PersonCircle } from "react-bootstrap-icons";
 import Dropdown from "../dropdown/Dropdown.tsx";
 
+const ProfileLink = () => {
+  return (
+    <div className={classes.menuItem}>
+      <Link to="/profile" id="profile-link" className={classes.profileLink}>
+        <PersonCircle style={{ minHeight: 20, minWidth: 20 }} />
+      </Link>
+    </div>
+  );
+};
+
 const Header = () => {
   const { isMobile, ref } = useWidthObserver();
   const [modalIsHidden, setModalIsHidden] = useState(true);
@@ -57,6 +67,7 @@ const Header = () => {
         <div className={classes.menu}>
           {isMobile ? (
             <>
+              {user && !isProfilePage && <ProfileLink />}
               <Dropdown
                 label={i18n.language}
                 options={["en", "ru", "tr"]}
@@ -110,17 +121,7 @@ const Header = () => {
                 options={["en", "ru", "tr"]}
                 onOptionClick={(v) => i18n.changeLanguage(v)}
               />
-              {user && !isProfilePage && (
-                <div className={classes.menuItem}>
-                  <Link
-                    to="/profile"
-                    id="profile-link"
-                    className={classes.profileLink}
-                  >
-                    <PersonCircle style={{ minHeight: 20, minWidth: 20 }} />
-                  </Link>
-                </div>
-              )}
+              {user && !isProfilePage && <ProfileLink />}
               {(user || !!cart.items.length) && !isCartPage && (
                 <div className={classes.menuItem}>
                   <Link to="cart" id="cart-link" className={classes.cartLink}>

@@ -1,4 +1,4 @@
-import { Form } from "react-router";
+import { Form, useNavigate } from "react-router";
 import classes from "./ProfileInfo.module.scss";
 import Input from "../../../../shared/components/input/Input";
 import { useAuthContext } from "../../../../context/AuthContext";
@@ -61,7 +61,7 @@ const fieldsAreValid = (
 };
 
 const ProfileInfo = () => {
-  const { user, setUser } = useAuthContext();
+  const { user, setUser, logout } = useAuthContext();
   const [formData, setFormData] = useState<UpdateUserDto>({
     city: "",
     street: "",
@@ -75,6 +75,11 @@ const ProfileInfo = () => {
   const [error, setError] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const streetsToChoose = useMemo(
     () =>
@@ -299,6 +304,13 @@ const ProfileInfo = () => {
 
         {error && <Error message={error} />}
       </Form>
+
+      <button
+        className={cn(classes.btn, classes.logout)}
+        onClick={handleLogout}
+      >
+        Log out
+      </button>
     </section>
   );
 };
