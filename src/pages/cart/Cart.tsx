@@ -5,38 +5,45 @@ import { useAuthContext } from "../../context/AuthContext";
 import CartItem from "./cartItem/CartItem";
 import { useCallback, useEffect, useState } from "react";
 import Loader from "../../shared/components/loader/Loader";
-import { confirmOrder } from "../../api";
+import { confirmOrder, createCheckout } from "../../api";
 import Error from "../../shared/components/error/Error";
+import { useTranslation } from "react-i18next";
 
 const Cart = () => {
-  const { cart, clearCart } = useCartContext();
+  const { cart } = useCartContext();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [response, setResponse] = useState("");
+  const { t } = useTranslation();
 
   const handleConfirmOrder = useCallback(async () => {
     setLoading(true);
     try {
-      await confirmOrder({
-        items: cart.items.map((item) => ({
-          productId: item.productId,
-          additives: item.additives,
-          size: item.size,
-          quantity: item.quantity,
-        })),
-        totalPrice: cart.totalPrice,
-      });
-      setResponse(
-        "Thank you for your order! Our manager will contact you shortly."
+      const token = localStorage.getItem("authToken");
+      if (!token) return;
+      console.log(cart);
+      const orderId = await confirmOrder(
+        {
+          items: cart.items,
+          totalPrice: cart.discountedTotalPrice || cart.totalPrice,
+        },
+        token
       );
-      clearCart();
+
+      const data = await createCheckout(orderId, token);
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setResponse(t("order_response"));
+      }
     } catch {
-      setError("Something gone wrong. Please try again");
+      setError(t("error"));
     } finally {
       setLoading(false);
     }
-  }, [cart.items, cart.totalPrice, clearCart]);
+  }, [cart, t]);
 
   useEffect(() => {
     if (error) {
@@ -54,16 +61,18 @@ const Cart = () => {
       {error && <Error message={error} toast />}
       {response && <Error message={response} toast style="response" />}
       <div className={cn(classes.cartContainer, classes.container)}>
-        <h1 className={classes.cartTitle}>Cart</h1>
+        <h1 className={classes.cartTitle}>{t("cart")}</h1>
 
         <div className={classes.cartList}>
           {!!cart.items.length &&
-            cart.items.map((item) => <CartItem item={item} key={item.title} />)}
+            cart.items.map((item) => (
+              <CartItem item={item} key={item.uniqueId} />
+            ))}
         </div>
 
         <div className={classes.cartData}>
           <div className={classes.cartTotalContainer}>
-            <h5 className={classes.cartTotalLabel}>Total:</h5>
+            <h5 className={classes.cartTotalLabel}>{t("total")}:</h5>
             <h5
               className={cn(classes.cartTotalValue, {
                 [classes.canceled]: user,
@@ -82,13 +91,13 @@ const Cart = () => {
           {user && (
             <>
               <div className={classes.cartAddressContainer}>
-                <h5 className={classes.cartAddressLabel}>Address:</h5>
+                <h5 className={classes.cartAddressLabel}>{t("address")}:</h5>
                 <h5 className={classes.cartAddressValue}>
                   {user.city}, {user.street}
                 </h5>
               </div>
               <div className={classes.cartPayMethodContainer}>
-                <h5 className={classes.cartPayMethodLabel}>Pay by:</h5>
+                <h5 className={classes.cartPayMethodLabel}>{t("pay_by")}:</h5>
                 <h5 className={classes.cartPayMethodValue}>
                   {user.paymentMethod}
                 </h5>
@@ -104,17 +113,17 @@ const Cart = () => {
                 className={classes.confirmOrderButton}
                 onClick={handleConfirmOrder}
               >
-                Confirm
+                {t("confirm")}
               </button>
             )}
           </>
         ) : (
           <div className={classes.authLinksContainer}>
             <a className={classes.authLink} href="/signIn">
-              Sign In
+              {t("sign")}
             </a>
             <a className={classes.authLink} href="/register">
-              Registration
+              {t("registration")}
             </a>
           </div>
         )}

@@ -99,3 +99,26 @@ button {
 .accented {
   color: var(--text-accent, #b0907a);
 }
+
+@media screen and (max-width: 380px) {
+
+    .slideContent {
+    width: 90% !important;
+  }
+
+  .slideItem {
+    width: 348px;
+    width: 100%;
+
+    & img {
+      // width: 348px;
+      // height: 348px;
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    & .description {
+      width: 100%;
+    }
+  }
+}

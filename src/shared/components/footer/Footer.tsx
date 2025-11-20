@@ -4,6 +4,7 @@ import AddressIcon from "../../../assets/addressIcon.svg?react";
 import twitter from "../../../assets/twitter.svg?react";
 import instagram from "../../../assets/instagram.svg?react";
 import facebook from "../../../assets/facebook.svg?react";
+import { Trans, useTranslation } from "react-i18next";
 
 const Footer = () => {
   const socialMedias = [
@@ -11,18 +12,21 @@ const Footer = () => {
     { Icon: instagram, id: 2 },
     { Icon: facebook, id: 3 },
   ].map(({ ...Icon }) => Icon);
+  const { t } = useTranslation();
   return (
     <footer className={classes.contacts} id="contacts">
       <div className={classes.container}>
         <div className={classes.medias}>
-          <h2>
-            Sip, Savor, Smile.{" "}
-            <span className={classes.skewed}>It’s coffee time!</span>
+          <h2 className={classes.contactsTitle}>
+            <Trans i18nKey="footer_title">
+              Sip, Savor, Smile.
+              <span className={classes.skewed}>It’s coffee time!</span>
+            </Trans>
           </h2>
 
           <div className={classes.buttons}>
             {socialMedias.map((item) => (
-              <button key={item.id}>
+              <button key={item.id} className={classes.mediaButton}>
                 <item.Icon />
               </button>
             ))}
@@ -30,7 +34,7 @@ const Footer = () => {
         </div>
 
         <div className={classes.contactsInfo}>
-          <h3>Contact us</h3>
+          <h3>{t("contact_title")}</h3>
           <ul>
             <li>
               <a
@@ -72,7 +76,7 @@ const Footer = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Mon-Sat: 9:00 AM – 23:00 PM
+                {t("time")}
               </a>
             </li>
           </ul>

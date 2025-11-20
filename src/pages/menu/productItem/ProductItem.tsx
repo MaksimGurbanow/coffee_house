@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import classes from "./ProductItem.module.scss";
 import cn from "classnames";
 import type { Product } from "../../../types/types";
@@ -8,6 +8,10 @@ type ProductItemProps = Omit<Product, "sizez" | "additives" | "path"> & {
   onClick: () => void;
 };
 
+const Image = lazy(
+  () => import("../../../shared/components/lazyImage/LazyImage.tsx")
+);
+
 const ProductItem = ({
   id,
   name,
@@ -16,27 +20,16 @@ const ProductItem = ({
   discountPrice,
   onClick,
 }: ProductItemProps) => {
-  const [imageSrc, setImageSrc] = useState<string>("");
   const { user } = useAuthContext();
-
-  useEffect(() => {
-    const loadImage = async () => {
-      try {
-        const image = await import(`../../../images/products/${id}.jpg`);
-        setImageSrc(image.default);
-      } catch (err) {
-        console.error(`Image for product ${id} not found`, err);
-      }
-    };
-    loadImage();
-  }, [id]);
 
   const showDiscount = user && discountPrice;
 
   return (
     <div className={classes.productItem} data-name={name} onClick={onClick}>
       <div className={classes.image}>
-        {imageSrc && <img src={imageSrc} alt={name} />}
+        <Suspense>
+          <Image id={id.toString()} />
+        </Suspense>
       </div>
 
       <div className={classes.description}>

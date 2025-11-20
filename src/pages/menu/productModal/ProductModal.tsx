@@ -6,11 +6,47 @@ import type { Product } from "../../../types/types";
 import { useAuthContext } from "../../../context/AuthContext";
 import AlertIcon from "../../../images/info-empty.svg";
 import { useCartContext } from "../../../context/CartContext";
+import { useTranslation } from "react-i18next";
 
 interface ProductModalProps {
   product: Product;
   onClose: () => void;
 }
+
+const OptionButton = ({
+  price,
+  discountedPrice,
+  className,
+  onClick,
+  icon,
+  text,
+}: {
+  price: string;
+  discountedPrice?: string;
+  className: string;
+  onClick: () => void;
+  icon: string | number;
+  text: string;
+}) => {
+  const { user } = useAuthContext();
+  const showDiscount = user && price !== discountedPrice && discountedPrice;
+  return (
+    <button className={className} onClick={onClick}>
+      <span className={classes.sizeIcon}>{icon}</span>
+      <span className={classes.sizeText}>{text}</span>
+      <div className={classes.tooltip} style={{ position: "absolute" }}>
+        <span className={classes.tooltipPrice}>
+          <span className={cn({ [classes.canceled]: showDiscount })}>
+            ${price}
+          </span>
+          {showDiscount && (
+            <span className={classes.discounted}> → ${discountedPrice}</span>
+          )}
+        </span>
+      </div>
+    </button>
+  );
+};
 
 const ProductModal = ({ product, onClose }: ProductModalProps) => {
   const [imageSrc, setImageSrc] = useState<string>("");
@@ -18,6 +54,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
   const [chosenAdditives, setChosenAdditives] = useState<string[]>([]);
   const { user } = useAuthContext();
   const { addProductToCart } = useCartContext();
+  const { t } = useTranslation();
 
   const sortedSizes = useMemo(
     () =>
@@ -52,8 +89,6 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
   }, [basePrice, sortedSizes, chosenSize, additives, chosenAdditives]);
 
   const discountedTotal = useMemo(() => {
-    if (!hasDiscount) return total;
-
     const sizeObj = sortedSizes.find((s) => s.size === chosenSize);
     const sizeDiscount = sizeObj?.discountPrice ?? sizeObj?.price ?? basePrice;
 
@@ -62,7 +97,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
       .reduce((sum, a) => +sum + +(a.discountPrice ?? a.price), 0);
 
     return +sizeDiscount + additivesDiscount;
-  }, [basePrice, sortedSizes, chosenSize, additives, chosenAdditives, hasDiscount, total]);
+  }, [basePrice, sortedSizes, chosenSize, additives, chosenAdditives]);
 
   const toggleAdditive = (addName: string) => {
     setChosenAdditives((prev) =>
@@ -126,43 +161,45 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
           </div>
 
           <div className={classes.size}>
-            <span>Size</span>
+            <span className={classes.sizeTitle}>{t("size")}</span>
             <div className={classes.tabs}>
               {sortedSizes.map((size) => (
-                <button
-                  key={size.size}
+                <OptionButton
+                  key={size.sizeName}
+                  text={size.size}
+                  icon={size.sizeName}
+                  price={size.price}
+                  discountedPrice={size.discountPrice}
+                  onClick={() => setChosenSize(size.size)}
                   className={cn(classes.sizeBtn, {
                     [classes.chosen]: chosenSize === size.size,
                   })}
-                  onClick={() => setChosenSize(size.size)}
-                >
-                  <span className={classes.sizeIcon}>{size.sizeName}</span>
-                  <span className={classes.sizeText}>{size.size}</span>
-                </button>
+                />
               ))}
             </div>
           </div>
 
           <div className={classes.additives}>
-            <span>Additives</span>
+            <span className={classes.additivesTitle}>{t("additives")}</span>
             <div className={classes.tabs}>
               {additives.map((add, index) => (
-                <button
+                <OptionButton
+                  price={add.price}
+                  discountedPrice={add.discountPrice}
+                  icon={index + 1}
                   key={add.name}
+                  text={add.name}
                   className={cn(classes.additivesBtn, {
                     [classes.chosen]: chosenAdditives.includes(add.name),
                   })}
                   onClick={() => toggleAdditive(add.name)}
-                >
-                  <span className={classes.additivesIcon}>{index + 1}</span>
-                  <span className={classes.additivesText}>{add.name}</span>
-                </button>
+                />
               ))}
             </div>
           </div>
 
           <div className={classes.total}>
-            <h3 className={classes.totalText}>Total:</h3>
+            <h3 className={classes.totalText}>{t("total")}:</h3>
             <h3
               className={cn(classes.totalNum, {
                 [classes.canceled]: hasDiscount && discountedTotal !== total,
@@ -180,13 +217,11 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
 
           <div className={classes.alert}>
             <img src={AlertIcon} alt="alert icon" />
-            The cost is not final. Download our mobile app to see the final
-            price and place your order. Earn loyalty points and enjoy your
-            favorite coffee with up to 20% discount.
+            {t("alert")}
           </div>
 
           <button className={classes.addToCartBtn} onClick={handleAddToCart}>
-            Add to cart
+            {t("add_to_cart")}
           </button>
         </div>
       </div>

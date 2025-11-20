@@ -14,16 +14,21 @@ import SignIn from "./pages/signIn/SignIn";
 import Register from "./pages/register/Register";
 import { CartProvider } from "./context/CartProvider";
 import Cart from "./pages/cart/Cart";
+import { LocationProvider } from "./i18n/LocationProvider";
+import Profile from "./pages/profile/Profile";
+import PaymentConfirm from "./pages/paymentConfirm/PaymentConfirm";
 
 const Layout = () => {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Header />
-        <Outlet />
-        <Footer />
-      </CartProvider>
-    </AuthProvider>
+    <LocationProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Header />
+          <Outlet />
+          <Footer />
+        </CartProvider>
+      </AuthProvider>
+    </LocationProvider>
   );
 };
 
@@ -45,6 +50,8 @@ const router = createBrowserRouter([
       { path: "signIn", element: <SignIn /> },
       { path: "register", element: <Register /> },
       { path: "cart", element: <Cart /> },
+      { path: "profile", element: <Profile /> },
+      { path: "payment_confirm", element: <PaymentConfirm /> },
     ],
   },
 ]);

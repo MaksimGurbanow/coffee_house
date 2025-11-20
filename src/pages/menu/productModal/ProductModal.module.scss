@@ -99,6 +99,10 @@
 .productModal .addToCartBtn {
   cursor: pointer;
   width: 100%;
+  min-height: unset;
+  height: 44px !important;
+  font-weight: 600;
+  font-family: Inter;
   display: flex;
   padding: 10px 78px;
   justify-content: center;
@@ -107,6 +111,10 @@
   align-self: stretch;
   border-radius: 100px;
   border: 1px solid var(--border-dark, #665f55);
+
+  &:hover {
+    color: var(--text-light);
+  }
 }
 
 .tabs {
@@ -129,14 +137,7 @@
   height: 46px;
   font-family: 'Inter';
   font-weight: 600;
-}
-
-.productModal span {
-  display: flex;
-  width: 30px;
-  padding: 3px 10px;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 }
 
 .tabs button div {
@@ -170,8 +171,18 @@
   color: #e1d4c9 !important;
 }
 
-.sizeIcon {
+.sizeTitle, .additivesTitle {
+  display: inline-block;
+  color: var(--text-dark);
+}
+
+.sizeIcon, .additivesIcon {
   text-transform: uppercase;
+  display: flex;
+  min-width: 30px;
+  max-width: 40px;
+  background: #c1b6ad;
+  aspect-ratio: 1;
 }
 
 .sizeText, .additivesText {
@@ -189,10 +200,17 @@
   color: #403f3d !important;
 }
 
-.size button:hover .sizeIcon, .additives button:hover .additivesIcon {
+.sizeBtn:hover .sizeIcon, .additivesBtn:hover .additivesIcon {
   background: #e1d4c9 !important;
   color: #403f3d !important;
 }
+
+.sizeBtn:hover, .additivesBtn:hover {
+  & .tooltip {
+    opacity: 1;
+  }
+}
+
 
 .alert {
   display: flex;
@@ -239,6 +257,46 @@
   display: flex;
 }
 
+
+.modalCloseBtn {
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  width: 44px;
+  height: 44px;
+  min-width: unset;
+  min-height: unset;
+  position: absolute;
+  top: -50px;
+  right: 0px;
+}
+
+.canceled {
+  text-decoration:line-through;
+  opacity: 0.5;
+}
+
+.tooltip {
+  background: rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 4px;
+  pointer-events: none;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 9999;
+  transform: translateY(-4px);
+  transition: opacity 0.15s;
+  top: -70%;
+  
+  & span {
+    background: none;
+    font-size: 14px;
+    color: var(--text-light) !important;
+  }
+}
+
+
 @media screen and (min-width: 769px) {
     .productItem {
         cursor: pointer;
@@ -262,35 +320,3 @@
     display: none;
   }
 }
-
-.modalCloseBtn {
-  border: 1px solid var(--border-light);
-  border-radius: 100px;
-  width: 44px;
-  height: 44px;
-  min-width: unset;
-  min-height: unset;
-  position: absolute;
-  top: -50px;
-  right: 0px;
-}
-
-.canceled {
-  text-decoration:line-through;
-  opacity: 0.5;
-}
-
-.tooltip {
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
-  font-size: 13px;
-  border-radius: 4px;
-  padding: 4px 8px;
-  pointer-events: none;
-  position: absolute;
-  white-space: nowrap;
-  z-index: 9999;
-  transform: translateY(-4px);
-  transition: opacity 0.15s;
-}
-

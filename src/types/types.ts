@@ -86,3 +86,19 @@ export interface ValidationOptions {
   confirmPassword?: boolean;
   password?: string;
 }
+
+export type ProfileTabId = "profile" | "orders" | "settings";
+
+export interface OrderItem {
+  productId: number;
+  quantity: number;
+  size: string;
+  additives: string[];
+}
+
+export interface Order {
+  id: string;
+  createdAt: string;
+  totalPrice: number;
+  items: OrderItem[];
+}

@@ -26,6 +26,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    text-align: center;
   }
 }
 
@@ -88,9 +89,10 @@
 .menu {
   position: relative;
   display: inline-flex;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
   gap: 4px;
+  // display: flex;
 }
 
 .menuItems {
@@ -209,7 +211,7 @@
   display: none !important;
 }
 
-.cartLink:after, .cartLink:hover:after {
+.cartLink:after, .cartLink:hover:after, .profileLink:hover:after {
     transform: scale(0);
 }
 

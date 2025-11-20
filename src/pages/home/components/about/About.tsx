@@ -4,15 +4,19 @@ import About1 from "../../../../images/about-1.jpg";
 import About2 from "../../../../images/about-2.jpg";
 import About3 from "../../../../images/about-3.jpg";
 import About4 from "../../../../images/about-4.jpg";
+import { Trans, useTranslation } from "react-i18next";
 
 const About = () => {
+  useTranslation();
   return (
     <section className={classes.about} id="about">
       <div className={classes.aboutContainer}>
         <h2>
-          Resource is <span>the perfect and cozy place</span> where you can
-          enjoy a variety of hot beverages, relax, catch up with friends, or get
-          some work done.
+          <Trans i18nKey="about">
+            Resource is <span>the perfect and cozy place</span> where you can
+            enjoy a variety of hot beverages, relax, catch up with friends, or
+            get some work done.
+          </Trans>
         </h2>
         <div className={classes.images}>
           <div

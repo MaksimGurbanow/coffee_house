@@ -5,11 +5,16 @@ import type {
   LoginResponse,
   RegisterDto,
   RegisterResponse,
+  UpdateUserDto,
 } from "../types/dto";
-import type { CardProduct, Product } from "../types/types";
+import type { CardProduct, Order, Product } from "../types/types";
+
+const url = import.meta.env.DEV
+  ? "http://localhost:3000"
+  : import.meta.env.VITE_API_URL;
 
 export const getFavoriteProducts = async (): Promise<CardProduct[]> => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/products/favorites`);
+  const res = await fetch(`${url}/products/favorites`);
 
   if (!res.ok) {
     throw new Error(
@@ -22,7 +27,7 @@ export const getFavoriteProducts = async (): Promise<CardProduct[]> => {
 };
 
 export const getProducts = async (): Promise<CardProduct[]> => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/products`);
+  const res = await fetch(`${url}/products`);
 
   if (!res.ok) {
     throw new Error(
@@ -38,20 +43,20 @@ export const getProductByID = async (
   id: string | number,
   signal: AbortController["signal"]
 ): Promise<Product> => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/products/${id}`, {
+  const res = await fetch(`${url}/products/${id}`, {
     signal,
   });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch product: ${res.status} ${res.statusText}`);
   }
-  
+
   const data: Product = (await res.json()).data;
   return data;
 };
 
 export const register = async (registerDto: RegisterDto) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+  const res = await fetch(`${url}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,8 +72,31 @@ export const register = async (registerDto: RegisterDto) => {
   return data.data;
 };
 
+export const updateUser = async (
+  updateUserDto: Partial<UpdateUserDto>,
+  token: string
+) => {
+  console.log(updateUserDto);
+  const res = await fetch(`${url}/auth/profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updateUserDto),
+  });
+  const data: RegisterResponse = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    const message = data?.error || `Request failed with status ${res.status}`;
+    throw new Error(message);
+  }
+  return data.data;
+};
+
 export const login = async (loginDto: LoginDto) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+  console.log(loginDto);
+  const res = await fetch(`${url}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -82,7 +110,7 @@ export const login = async (loginDto: LoginDto) => {
   return data.data;
 };
 export const getProfile = async (token: string) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
+  const res = await fetch(`${url}/auth/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -94,18 +122,91 @@ export const getProfile = async (token: string) => {
   return data.data;
 };
 
-export const confirmOrder = async (confirmOrderDto: ConfirmOrderDto) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/orders/confirm`, {
+export const confirmOrder = async (
+  confirmOrderDto: ConfirmOrderDto,
+  token: string
+) => {
+  console.log(confirmOrderDto);
+  const res = await fetch(`${url}/orders/confirm`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(confirmOrderDto),
+    body: JSON.stringify({
+      ...confirmOrderDto,
+      items: confirmOrderDto.items.map((item) => ({
+        productId: item.productId,
+        size: item.size,
+        additives: item.additives,
+        quantity: item.quantity,
+      })),
+    }),
   });
   if (!res.ok) {
     throw new Error(`Failed to confirm order: ${res.status} ${res.statusText}`);
   }
   const data: { data: { message: string; orderId: string } } = await res.json();
+
+  return data.data.orderId;
+};
+
+export const getOrders = async (
+  userId: string | number,
+  token: string
+): Promise<Order[]> => {
+  const res = await fetch(`${url}/orders/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch profile: ${res.status} ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data.data;
+};
+
+export const createCheckout = async (orderId: string, token: string) => {
+  const res = await fetch(`${url}/payments/checkout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ orderId }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to confirm order: ${res.status} ${res.statusText}`);
+  }
+  const data: { message: string; url: string } = await res.json();
+
+  return data;
+};
+
+export const verifyPayment = async (
+  hash: string,
+  orderId: string,
+  token: string
+) => {
+  const res = await fetch(
+    `${url}/payments/verify-order?orderId=${orderId}&hash=${hash}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ orderId, hash }),
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to confirm order: ${res.status} ${res.statusText}`);
+  }
+  const data: { message: string; valid: boolean } = await res.json();
 
   return data;
 };
